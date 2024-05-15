@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import MainNav from '@/components/MainNav';
 
 export const metadata: Metadata = {
   title: 'Ticketing App',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <MainNav />
+        {children}
+      </body>
     </html>
   );
 }
