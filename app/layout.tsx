@@ -16,7 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MainNav />
-        {children}
+        <main className="flex flex-col items-center p-4">
+          <div className="max-w-6xl w-full">{children}</div>
+        </main>
       </body>
     </html>
   );
