@@ -1,3 +1,4 @@
+import TicketPriority from '@/components/TicketPriority';
 import TicketStatusBadge from '@/components/TicketStatusBadge';
 import {
   Table,
@@ -33,7 +34,9 @@ const TicketsTable = async ({ tickets }: { tickets: Ticket[] }) => {
                       <TicketStatusBadge status={ticket.status} />
                     </div>
                   </TableCell>
-                  <TableCell>{ticket.priority}</TableCell>
+                  <TableCell>
+                    <TicketPriority priority={ticket.priority} />
+                  </TableCell>
                   <TableCell>
                     {ticket.createdAt
                       .toLocaleDateString('en-US', {
