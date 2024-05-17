@@ -12,7 +12,7 @@ import { Ticket } from '@prisma/client';
 
 const TicketsTable = async ({ tickets }: { tickets: Ticket[] }) => {
   return (
-    <div className="w-full mt-5 border rounded-lg">
+    <div className="w-full mt-4 border rounded-lg">
       <Table>
         <TableHeader>
           <TableRow>
