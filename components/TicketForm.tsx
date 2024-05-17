@@ -15,16 +15,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type TicketFormData = z.infer<typeof ticketSchema>;
 
 const TicketForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
+
   const form = useForm<TicketFormData>({
     resolver: zodResolver(ticketSchema),
   });
 
   async function handleSubmit(values: z.infer<typeof ticketSchema>) {
-    console.log(values);
+    try {
+      setIsSubmitting(true);
+      setError('');
+      const res = await fetch('/api/tickets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: values.title,
+          description: values.description,
+          status: values.status,
+          priority: values.priority,
+        }),
+      });
+
+      router.push('/tickets');
+      router.refresh();
+    } catch (error) {
+      setError('unknown error orrcured');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -110,6 +139,9 @@ const TicketForm = () => {
               </FormItem>
             )}
           />
+          <Button disabled={isSubmitting} type="submit">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
