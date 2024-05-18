@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Ticket } from '@prisma/client';
 import Link from 'next/link';
+import DeleteButton from './DeleteButton';
 
 const TicketDetail = ({ ticket }: { ticket: Ticket }) => {
   return (
@@ -53,11 +54,11 @@ const TicketDetail = ({ ticket }: { ticket: Ticket }) => {
               .replace(',', '')}
           </div>
         </CardContent>
-        <CardFooter className="flex w-full justify-between mt-4">
+        <CardFooter className="flex w-full justify-between items-end mt-4">
           <Link href={`/tickets/edit/${ticket.id}`}>
             <Button>Update</Button>
           </Link>
-          <Button className="bg-secondary">Delete</Button>
+          <DeleteButton ticket={ticket} />
         </CardFooter>
       </Card>
     </div>

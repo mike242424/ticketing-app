@@ -4,11 +4,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 const Tickets = async () => {
-  const tickets = await prisma.ticket.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  const tickets = await prisma.ticket.findMany();
 
   return (
     <div className="flex flex-col items-end">
