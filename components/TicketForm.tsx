@@ -18,10 +18,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Ticket } from '@prisma/client';
 
 type TicketFormData = z.infer<typeof ticketSchema>;
 
-const TicketForm = () => {
+const TicketForm = ({ ticket }: { ticket?: Ticket }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -34,18 +35,34 @@ const TicketForm = () => {
     try {
       setIsSubmitting(true);
       setError('');
-      const res = await fetch('/api/tickets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: values.title,
-          description: values.description,
-          status: values.status,
-          priority: values.priority,
-        }),
-      });
+
+      if (ticket) {
+        const res = await fetch(`/api/tickets/${ticket.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: values.title,
+            description: values.description,
+            status: values.status,
+            priority: values.priority,
+          }),
+        });
+      } else {
+        const res = await fetch('/api/tickets', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: values.title,
+            description: values.description,
+            status: values.status,
+            priority: values.priority,
+          }),
+        });
+      }
 
       router.push('/tickets');
       router.refresh();
@@ -60,12 +77,13 @@ const TicketForm = () => {
     <div className="w-full">
       <Form {...form}>
         <form
-          className="flex flex-col gap-6 p-10"
+          className="flex flex-col gap-6 px-10"
           onSubmit={form.handleSubmit(handleSubmit)}
         >
           <FormField
             control={form.control}
             name="title"
+            defaultValue={ticket?.title}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Ticket Title</FormLabel>
@@ -78,6 +96,7 @@ const TicketForm = () => {
           <FormField
             control={form.control}
             name="description"
+            defaultValue={ticket?.description}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Ticket Description</FormLabel>
@@ -90,6 +109,7 @@ const TicketForm = () => {
           <FormField
             control={form.control}
             name="status"
+            defaultValue={ticket?.status}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Ticket Status</FormLabel>
@@ -116,6 +136,7 @@ const TicketForm = () => {
           <FormField
             control={form.control}
             name="priority"
+            defaultValue={ticket?.priority}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Ticket Priority</FormLabel>
@@ -140,7 +161,7 @@ const TicketForm = () => {
             )}
           />
           <Button disabled={isSubmitting} type="submit">
-            Submit
+            {ticket ? 'Update' : 'Add'}
           </Button>
         </form>
       </Form>

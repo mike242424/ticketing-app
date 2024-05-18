@@ -6,9 +6,12 @@ const TicketForm = dynamic(() => import('@/components/TicketForm'), {
 
 const NewTicket = () => {
   return (
-    <div className="flex items-center justify-center w-full">
+    <>
+      <h1 className="font-bold text-3xl text-center mt-4 w-full">
+        Update Ticket
+      </h1>
       <TicketForm />
-    </div>
+    </>
   );
 };
 
