@@ -2,7 +2,10 @@ import prisma from '@/prisma/db';
 import { ticketSchema } from '@/validationSchemas/ticket';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function PATCH(
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) {
   const body = await request.json();
   const validation = ticketSchema.safeParse(body);
 
@@ -13,7 +16,20 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const newTicket = await prisma.ticket.create({
+  const ticket = await prisma.ticket.findUnique({
+    where: {
+      id: +id,
+    },
+  });
+
+  if (!ticket) {
+    return NextResponse.json({ error: 'ticket not found ' }, { status: 404 });
+  }
+
+  const updatedTicket = await prisma.ticket.update({
+    where: {
+      id: ticket.id,
+    },
     data: {
       title: body.title,
       description: body.description,
@@ -22,5 +38,5 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return NextResponse.json({ message: 'ticket created successfully' });
+  return NextResponse.json({ message: 'ticket updated successfully' });
 }
