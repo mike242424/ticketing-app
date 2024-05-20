@@ -37,10 +37,13 @@ const Tickets = async ({
 
   return (
     <div className="flex flex-col items-center">
-      <Link className="self-end" href="/tickets/new">
-        <Button>New Ticket</Button>
-      </Link>
-      <StatusFilter />
+      <div className="flex justify-between items-center w-full gap-4">
+        <Link href="/tickets/new">
+          <Button>New Ticket</Button>
+        </Link>
+        <StatusFilter />
+      </div>
+
       <TicketsTable tickets={tickets} />
       <Pagination
         itemCount={ticketCount}

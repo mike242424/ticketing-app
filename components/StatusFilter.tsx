@@ -32,7 +32,7 @@ const StatusFilter = () => {
         router.push(`/tickets${query}`);
       }}
     >
-      <SelectTrigger>
+      <SelectTrigger className="w-4/12">
         <SelectValue placeholder="Status" />
       </SelectTrigger>
       <SelectContent>
