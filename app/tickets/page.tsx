@@ -4,16 +4,33 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Pagination from '@/components/Pagination';
 import StatusFilter from '@/components/StatusFilter';
+import { Status } from '@prisma/client';
 
 const Tickets = async ({
-  searchParams: { page },
+  searchParams: { page = '1', status },
 }: {
-  searchParams: { page: string };
+  searchParams: { page: string; status: Status };
 }) => {
   const pageSize = 10;
-  const ticketCount = await prisma.ticket.count();
 
+  const statuses = Object.values(Status);
+  const searchStatus = statuses.includes(status) ? status : undefined;
+
+  let where = {};
+
+  if (searchStatus) {
+    where = {
+      status: searchStatus,
+    };
+  } else {
+    where = {
+      NOT: [{ status: 'CLOSED' as Status }],
+    };
+  }
+
+  const ticketCount = await prisma.ticket.count({ where });
   const tickets = await prisma.ticket.findMany({
+    where,
     take: pageSize,
     skip: (+page - 1) * pageSize,
   });
