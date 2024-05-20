@@ -26,35 +26,45 @@ const TicketsTable = async ({
         <TableHeader>
           <TableRow>
             <TableHead>
-              <div className="flex items-center justify-start gap-2">
+              <div className="flex items-center justify-start">
                 <Link href={{ query: { ...searchParams, orderBy: 'title' } }}>
                   Title
                 </Link>
-                {searchParams.orderBy === 'title' && <ArrowDown />}
+                {searchParams.orderBy === 'title' && (
+                  <ArrowDown className="inline p-1" />
+                )}
               </div>
             </TableHead>
-            <TableHead>
-              <div className="flex justify-center">Status</div>
+            <TableHead className="flex justify-center items-center">
+              <Link href={{ query: { ...searchParams, orderBy: 'status' } }}>
+                Status
+              </Link>
+              {searchParams.orderBy === 'status' && (
+                <ArrowDown className="inline p-1" />
+              )}
             </TableHead>
             <TableHead>
-              <div className="flex items-center justify-start gap-2">
-                {' '}
+              <div className="flex items-center justify-start">
                 <Link
                   href={{ query: { ...searchParams, orderBy: 'priority' } }}
                 >
                   Priority
                 </Link>
-                {searchParams.orderBy === 'priority' && <ArrowDown />}
+                {searchParams.orderBy === 'priority' && (
+                  <ArrowDown className="inline p-1" />
+                )}
               </div>
             </TableHead>
             <TableHead>
-              <div className="flex items-center justify-start gap-2">
+              <div className="flex items-center justify-start">
                 <Link
                   href={{ query: { ...searchParams, orderBy: 'createdAt' } }}
                 >
                   Created At
                 </Link>
-                {searchParams.orderBy === 'createdAt' && <ArrowDown />}
+                {searchParams.orderBy === 'createdAt' && (
+                  <ArrowDown className="inline p-1" />
+                )}
               </div>
             </TableHead>
           </TableRow>
