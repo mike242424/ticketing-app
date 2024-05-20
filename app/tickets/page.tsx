@@ -4,23 +4,32 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Pagination from '@/components/Pagination';
 import StatusFilter from '@/components/StatusFilter';
-import { Status } from '@prisma/client';
+import { Status, Ticket } from '@prisma/client';
+
+export interface SearchParamsInterface {
+  page: string;
+  status: Status;
+  orderBy: keyof Ticket;
+}
 
 const Tickets = async ({
-  searchParams: { page = '1', status },
+  searchParams,
 }: {
-  searchParams: { page: string; status: Status };
+  searchParams: SearchParamsInterface;
 }) => {
   const pageSize = 10;
+  searchParams.page = '1';
 
   const statuses = Object.values(Status);
-  const searchStatus = statuses.includes(status) ? status : undefined;
+  const status = statuses.includes(searchParams.status)
+    ? searchParams.status
+    : undefined;
 
   let where = {};
 
-  if (searchStatus) {
+  if (status) {
     where = {
-      status: searchStatus,
+      status,
     };
   } else {
     where = {
@@ -32,7 +41,7 @@ const Tickets = async ({
   const tickets = await prisma.ticket.findMany({
     where,
     take: pageSize,
-    skip: (+page - 1) * pageSize,
+    skip: (+searchParams.page - 1) * pageSize,
   });
 
   return (
@@ -44,11 +53,11 @@ const Tickets = async ({
         <StatusFilter />
       </div>
 
-      <TicketsTable tickets={tickets} />
+      <TicketsTable tickets={tickets} searchParams={searchParams} />
       <Pagination
         itemCount={ticketCount}
         pageSize={pageSize}
-        currentPage={+page || 1}
+        currentPage={+searchParams.page || 1}
       />
     </div>
   );

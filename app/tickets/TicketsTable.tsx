@@ -10,19 +10,53 @@ import {
 } from '@/components/ui/table';
 import { Ticket } from '@prisma/client';
 import Link from 'next/link';
+import { ArrowDown } from 'lucide-react';
+import { SearchParamsInterface } from './page';
 
-const TicketsTable = async ({ tickets }: { tickets: Ticket[] }) => {
+const TicketsTable = async ({
+  tickets,
+  searchParams,
+}: {
+  tickets: Ticket[];
+  searchParams: SearchParamsInterface;
+}) => {
   return (
     <div className="w-full mt-4 border rounded-lg">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Title</TableHead>
+            <TableHead>
+              <div className="flex items-center justify-start gap-2">
+                <Link href={{ query: { ...searchParams, orderBy: 'title' } }}>
+                  Title
+                </Link>
+                {searchParams.orderBy === 'title' && <ArrowDown />}
+              </div>
+            </TableHead>
             <TableHead>
               <div className="flex justify-center">Status</div>
             </TableHead>
-            <TableHead>Priority</TableHead>
-            <TableHead>Created At</TableHead>
+            <TableHead>
+              <div className="flex items-center justify-start gap-2">
+                {' '}
+                <Link
+                  href={{ query: { ...searchParams, orderBy: 'priority' } }}
+                >
+                  Priority
+                </Link>
+                {searchParams.orderBy === 'priority' && <ArrowDown />}
+              </div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center justify-start gap-2">
+                <Link
+                  href={{ query: { ...searchParams, orderBy: 'createdAt' } }}
+                >
+                  Created At
+                </Link>
+                {searchParams.orderBy === 'createdAt' && <ArrowDown />}
+              </div>
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
