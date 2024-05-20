@@ -19,7 +19,7 @@ const TicketsTable = async ({ tickets }: { tickets: Ticket[] }) => {
           <TableRow>
             <TableHead>Title</TableHead>
             <TableHead>
-              <div className="flex justify-center">Status </div>
+              <div className="flex justify-center">Status</div>
             </TableHead>
             <TableHead>Priority</TableHead>
             <TableHead>Created At</TableHead>

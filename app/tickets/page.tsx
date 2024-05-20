@@ -3,6 +3,7 @@ import TicketsTable from './TicketsTable';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Pagination from '@/components/Pagination';
+import StatusFilter from '@/components/StatusFilter';
 
 const Tickets = async ({
   searchParams: { page },
@@ -22,6 +23,7 @@ const Tickets = async ({
       <Link className="self-end" href="/tickets/new">
         <Button>New Ticket</Button>
       </Link>
+      <StatusFilter />
       <TicketsTable tickets={tickets} />
       <Pagination
         itemCount={ticketCount}
