@@ -1,9 +1,9 @@
-import prisma from '@/prisma/db';
+import Link from 'next/link';
 import TicketsTable from './TicketsTable';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import Pagination from '@/components/Pagination';
 import StatusFilter from '@/components/StatusFilter';
+import prisma from '@/prisma/db';
 import { Status, Ticket } from '@prisma/client';
 
 export interface SearchParamsInterface {
@@ -25,6 +25,8 @@ const Tickets = async ({
     ? searchParams.status
     : undefined;
 
+  const orderBy = searchParams.orderBy ? searchParams.orderBy : 'createdAt';
+
   let where = {};
 
   if (status) {
@@ -40,6 +42,9 @@ const Tickets = async ({
   const ticketCount = await prisma.ticket.count({ where });
   const tickets = await prisma.ticket.findMany({
     where,
+    orderBy: {
+      [orderBy]: 'desc',
+    },
     take: pageSize,
     skip: (+searchParams.page - 1) * pageSize,
   });
