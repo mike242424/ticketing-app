@@ -16,12 +16,19 @@ import {
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { User } from '@prisma/client';
+import { $Enums, User } from '@prisma/client';
 import { userSchema } from '@/validationSchemas/user';
 
 type UserFormData = z.infer<typeof userSchema>;
+interface UserProps {
+  password: string;
+  name?: string | undefined;
+  username?: string | undefined;
+  role?: $Enums.Role | undefined;
+  id?: number | undefined;
+}
 
-const UserForm = ({ user }: { user?: User }) => {
+const UserForm = ({ user }: { user?: UserProps }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
