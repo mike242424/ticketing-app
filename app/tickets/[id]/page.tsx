@@ -8,13 +8,15 @@ const Ticket = async ({ params: { id } }: { params: { id: string } }) => {
     },
   });
 
+  const users = await prisma.user.findMany();
+
   if (!ticket) {
     return <p>ticket not found</p>;
   }
 
   return (
     <div>
-      <TicketDetail ticket={ticket}/>
+      <TicketDetail ticket={ticket} users={users} />
     </div>
   );
 };

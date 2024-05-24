@@ -8,11 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Ticket } from '@prisma/client';
+import { Ticket, User } from '@prisma/client';
 import Link from 'next/link';
 import DeleteButton from './DeleteButton';
+import AssignTicket from '@/components/AssignTicket';
 
-const TicketDetail = ({ ticket }: { ticket: Ticket }) => {
+const TicketDetail = ({ ticket, users }: { ticket: Ticket; users: User[] }) => {
   return (
     <div className="flex justify-center m-10">
       <Card className="flex flex-col items-center p-10 w-full md:w-8/12">
@@ -54,11 +55,12 @@ const TicketDetail = ({ ticket }: { ticket: Ticket }) => {
               .replace(',', '')}
           </div>
         </CardContent>
-        <CardFooter className="flex w-full justify-between items-end mt-4">
+        <CardFooter className="flex w-full sm:flex-row flex-col justify-between items-center gap-4 mt-4">
           <Link href={`/tickets/edit/${ticket.id}`}>
             <Button>Update</Button>
           </Link>
           <DeleteButton ticket={ticket} />
+          <AssignTicket ticket={ticket} users={users} />
         </CardFooter>
       </Card>
     </div>

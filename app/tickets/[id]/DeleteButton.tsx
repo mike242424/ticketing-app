@@ -37,9 +37,9 @@ const DeleteButton = ({ ticket }: { ticket: Ticket }) => {
   }
 
   return (
-    <>
+    <div>
       <AlertDialog>
-        <AlertDialogTrigger>
+        <AlertDialogTrigger asChild>
           <Button disabled={isDeleting}>Delete</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
@@ -58,7 +58,7 @@ const DeleteButton = ({ ticket }: { ticket: Ticket }) => {
         </AlertDialogContent>
       </AlertDialog>
       <div className="text-primary">{error}</div>
-    </>
+    </div>
   );
 };
 
