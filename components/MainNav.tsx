@@ -14,7 +14,7 @@ const MainNav = () => {
   ];
 
   return (
-    <nav className="flex flex-col items-center border-b p-4">
+    <nav className="flex flex-col items-center border-b p-4 bg-primary">
       <div className="max-w-6xl w-full">
         <div className="flex justify-between">
           <div className="flex gap-4 items-center">

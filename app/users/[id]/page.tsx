@@ -20,6 +20,7 @@ const EditUser = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <div>
+      <h1 className="font-bold text-3xl p-4 text-center">Update User</h1>
       <UserForm user={editableUser} />
     </div>
   );

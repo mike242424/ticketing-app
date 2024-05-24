@@ -1,9 +1,13 @@
-import UserForm from '@/components/UserForm';
+import prisma from '@/prisma/db';
+import UsersTable from './UsersTable';
 
-const Users = () => {
+const Users = async () => {
+  const users = await prisma.user.findMany();
+
   return (
     <div>
-      <UserForm />
+      <h1 className="font-bold text-3xl p-4 text-center">Users</h1>
+      <UsersTable users={users} />
     </div>
   );
 };

@@ -25,8 +25,8 @@ const TicketsTable = async ({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>
-              <div className="flex items-center justify-start">
+            <TableHead className="font-medium bg-primary rounded-tl-lg text-black dark:text-white">
+              <div className="flex items-center justify-start ">
                 <Link href={{ query: { ...searchParams, orderBy: 'title' } }}>
                   Title
                 </Link>
@@ -35,7 +35,7 @@ const TicketsTable = async ({
                 )}
               </div>
             </TableHead>
-            <TableHead className="flex justify-center items-center">
+            <TableHead className="flex justify-center items-center font-medium bg-primary text-black dark:text-white">
               <Link href={{ query: { ...searchParams, orderBy: 'status' } }}>
                 Status
               </Link>
@@ -43,7 +43,7 @@ const TicketsTable = async ({
                 <ArrowDown className="inline p-1" />
               )}
             </TableHead>
-            <TableHead>
+            <TableHead className="font-medium bg-primary text-black dark:text-white">
               <div className="flex items-center justify-start">
                 <Link
                   href={{ query: { ...searchParams, orderBy: 'priority' } }}
@@ -55,7 +55,7 @@ const TicketsTable = async ({
                 )}
               </div>
             </TableHead>
-            <TableHead>
+            <TableHead className="font-medium bg-primary rounded-tr-lg text-black dark:text-white">
               <div className="flex items-center justify-start">
                 <Link
                   href={{ query: { ...searchParams, orderBy: 'createdAt' } }}

@@ -51,6 +51,7 @@ const Tickets = async ({
 
   return (
     <div className="flex flex-col items-center">
+      <h1 className="font-bold text-3xl p-4">Tickets</h1>
       <div className="flex justify-between items-center w-full gap-4">
         <Link href="/tickets/new">
           <Button>New Ticket</Button>

@@ -64,7 +64,7 @@ const UserForm = ({ user }: { user?: UserProps }) => {
         });
       }
 
-      router.push('/tickets');
+      router.push('/users');
       router.refresh();
     } catch (error) {
       setError('unknown error orrcured');

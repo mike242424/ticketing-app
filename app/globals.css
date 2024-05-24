@@ -60,6 +60,6 @@
 
 @layer components {
   .nav-link {
-    @apply hover:text-primary;
+    @apply dark:hover:text-black hover:text-white;
   }
 }
